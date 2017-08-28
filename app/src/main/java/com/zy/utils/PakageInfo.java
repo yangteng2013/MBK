@@ -1,6 +1,7 @@
 package com.zy.utils;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -86,4 +87,23 @@ public class PakageInfo {
         }
         return str.toString();
     }
+
+    /**
+     * 获取应用的metadata
+     * @param context
+     * @return
+     */
+    public static String getMetaData(Context context,String name){
+        PackageManager packageManager =context.getPackageManager();
+        int tag = packageManager.GET_META_DATA;
+        String str="";
+        try {
+            ApplicationInfo applicationInfo =packageManager.getApplicationInfo(context.getPackageName(),tag);
+            str = applicationInfo.metaData.getString(name,"");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
 }

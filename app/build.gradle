@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        zy {
+            keyAlias 'MyPrivateKey'
+            keyPassword 'zhao1234'
+            storeFile file('C:/Users/Administrator/Desktop/apk/zyproj.jks')
+            storePassword 'zhao1234'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -10,24 +18,51 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk{
+        ndk {
             moduleName "mbkjni"
             ldLibs "log"
-            abiFilters "armeabi","armeabi-v7a","x86"
+            abiFilters "armeabi", "armeabi-v7a", "x86"
         }
+        signingConfig signingConfigs.zy
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.zy
         }
     }
-    sourceSets{
-        main{
-            jni.srcDirs=['src/main/jni']
-            jniLibs.srcDirs=['libs']
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/jni']
+            jniLibs.srcDirs = ['libs']
         }
     }
+    productFlavors {
+        baidu {
+        }
+        _360 {
+        }
+        yyb {
+        }
+        tecent {
+        }
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+//    applicationVariants.all {
+//        variant -> variant.outputs.each {
+//            output ->def outputFile = output.outputFile
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+//                output.outputFile = new File(outputFile.parent, "前缀_" + fileName)
+//            }
+//        }
+//    }
+
+
 }
 
 dependencies {
