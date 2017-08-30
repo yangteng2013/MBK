@@ -3,9 +3,15 @@ package com.zy.mbk;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -80,6 +86,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this,ActivityliveTest.class));
                 break;
             case R.id.button3:
+                View popContent =View.inflate(this,R.layout.popwindow,null);
+                final PopupWindow popupWindow  = new  PopupWindow(popContent, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.showAtLocation(v, Gravity.CENTER,0,0);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+                Button btn_pop_cancer =(Button)popContent.findViewById(R.id.btn_pop_cancer);
+                btn_pop_cancer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                Button btn_pop_ensure =(Button)popContent.findViewById(R.id.btn_pop_ensure);
+                btn_pop_ensure.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupWindow.dismiss();
+                    }
+                });
 
                 break;
             case R.id.button4:

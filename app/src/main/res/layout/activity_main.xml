@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="lpChange"
-        android:text="Button"/>
+        android:text="切屏"/>
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
