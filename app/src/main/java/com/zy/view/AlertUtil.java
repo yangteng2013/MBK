@@ -320,4 +320,9 @@ public class AlertUtil {
 	public interface ListCallBack {
 		public void getSelect(String s);
 	}
+
+	public void showDialog(){
+//        new MyDialogFragment().show(getFragmentManager(),"dialog");
+	}
+
 }

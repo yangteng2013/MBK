@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
+import com.zy.view.AlertUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,6 +109,17 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.button4:
+                AlertUtil.ShowAlertDialog(MainActivity.this, "sdad", new AlertUtil.AlertCallBack() {
+                    @Override
+                    public void onPositive() {
+
+                    }
+
+                    @Override
+                    public void onNegative() {
+
+                    }
+                });
                 break;
 //            case R.id.button5:
 //                break;

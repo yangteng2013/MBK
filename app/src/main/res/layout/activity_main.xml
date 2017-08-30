@@ -39,12 +39,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="lpChange"
-        android:text="弹窗"/>
+        android:text="showpop"/>
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="lpChange"
-        android:text="Button"/>
+        android:text="show dialog"/>
 
 </LinearLayout>

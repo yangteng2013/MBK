@@ -1,4 +1,4 @@
-﻿package com.zy.utils;
+package com.zy.utils;
 
 public class ChineseToEnglish {
     private static int[] pyvalue = new int[]{-20319, -20317, -20304, -20295,
