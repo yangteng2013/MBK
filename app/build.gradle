@@ -38,19 +38,19 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-    productFlavors {
-        baidu {
-        }
-        _360 {
-        }
-        yyb {
-        }
-        tecent {
-        }
-    }
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
+//    productFlavors {
+//        baidu {
+//        }
+//        _360 {
+//        }
+//        yyb {
+//        }
+//        tecent {
+//        }
+//    }
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//    }
 
 //    applicationVariants.all {
 //        variant -> variant.outputs.each {

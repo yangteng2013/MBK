@@ -114,15 +114,25 @@ public class MainActivity extends AppCompatActivity {
                     public void onPositive() {
 
                     }
-
                     @Override
                     public void onNegative() {
 
                     }
                 });
                 break;
-//            case R.id.button5:
-//                break;
+            case R.id.button5:
+                AlertUtil.showDialog(MainActivity.this, "温馨提示", "cfcaasad", "确定", "取消", new AlertUtil.AlertCallBack() {
+                    @Override
+                    public void onPositive() {
+                        Logger.d("madehaonan");
+                    }
+
+                    @Override
+                    public void onNegative() {
+                        Logger.d("madeyidiandoubunan");
+                    }
+                });
+                break;
              default:break;
         }
     }

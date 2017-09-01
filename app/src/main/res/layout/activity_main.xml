@@ -46,5 +46,11 @@
         android:layout_height="wrap_content"
         android:onClick="lpChange"
         android:text="show dialog"/>
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="lpChange"
+        android:text="show dialog"/>
 
 </LinearLayout>

@@ -22,19 +22,19 @@ import java.util.TimerTask;
 * @author 田裕杰 
 *  
 */
-public class AlertDialog extends Dialog{
+public class MaskDialog extends Dialog{
 
 	private long mTimeOut = 0;// 默认timeOut为0即无限大
 	private OnTimeOutListener mTimeOutListener = null;// timeOut后的处理器
 	private Timer mTimer = null;// 定时器
-	private AlertDialog dialog;
+	private MaskDialog dialog;
 	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			if (isShowing()) {
 				if (mTimeOutListener != null) {
-					mTimeOutListener.onTimeOut(AlertDialog.this);
+					mTimeOutListener.onTimeOut(MaskDialog.this);
 					dismiss();
 				} else {
 					dismiss();
@@ -65,13 +65,13 @@ public class AlertDialog extends Dialog{
 	private ImageView load;
 	private Button cancel;
 
-	public AlertDialog(Context context, String titleStr) {
+	public MaskDialog(Context context, String titleStr) {
 		super(context, R.style.dialog_style);
 		this.context = context;
 		this.mTitleStr = titleStr;
 	}
 
-	public AlertDialog(Context context, int theme, String titleStr) {
+	public MaskDialog(Context context, int theme, String titleStr) {
 		super(context, theme);
 		this.context = context;
 		this.mTitleStr = titleStr;
@@ -150,9 +150,9 @@ public class AlertDialog extends Dialog{
 	 *            timeOutListener 超时后的处理器
 	 * @return MyProgressDialog 对象
 	 */
-	public static AlertDialog createAlertDialog(Context context, String title,
-                                                long time, OnTimeOutListener listener) {
-		AlertDialog Dialog = new AlertDialog(context, title);
+	public static MaskDialog createAlertDialog(Context context, String title,
+                                               long time, OnTimeOutListener listener) {
+		MaskDialog Dialog = new MaskDialog(context, title);
 		if (time != 0) {
 			Dialog.setTimeOut(time, listener);
 		}

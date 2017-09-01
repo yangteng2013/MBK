@@ -122,8 +122,13 @@ public class AntiHook {
             }  
         }  
         return false;  
-    }  
-    
+    }
+
+    /**
+     * 检测native方法 自有的native需要排除
+     * @param context
+     * @return
+     */
     private static boolean findHookNative(Context context) {
     	PackageManager packageManager = context.getPackageManager();  
         List<ApplicationInfo> applicationInfoList = packageManager  

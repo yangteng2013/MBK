@@ -166,17 +166,12 @@ public class AlertUtil {
 
 		listv.setAdapter(adapter);
 		listv.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				dlg.dismiss();
 				callback.getSelect(str[arg2]);
 			}
-			
 		});
-		
-		
-		
 	}
 
 	/**
@@ -234,9 +229,9 @@ public class AlertUtil {
 	
 	public static void ShowHintDialogNotCallBack(Activity activity, String submitStr,
 			String title, String msg) {
-//		System.out.println("new AlertDialog.Builder");
+//		System.out.println("new MaskDialog.Builder");
 		final Dialog dlg  = new Dialog(activity,R.style.dialog_style);
-//		final AlertDialog dlg = new AlertDialog.Builder(activity).create();
+//		final MaskDialog dlg = new MaskDialog.Builder(activity).create();
 		dlg.setCancelable(false);
 		dlg.show();
 		Window window = dlg.getWindow();
@@ -264,7 +259,7 @@ public class AlertUtil {
 	}
 	
 	/**
-	 * final AlertDialog dlg = new AlertDialog.Builder(activity).create();
+	 * final MaskDialog dlg = new MaskDialog.Builder(activity).create();
 		dlg.setCancelable(false);
 		dlg.show();
 		Window window = dlg.getWindow();
@@ -273,8 +268,7 @@ public class AlertUtil {
 		window.setContentView(R.layout.dialog_hint_layout);
 		// 为确认按钮添加事件,执行退出应用操作
 		TextView msg_tv = (TextView) window.findViewById(R.id.dialog_hint_msg);
-		TextView title_tv = (TextView) window
-				.findViewById(R.id.dialog_hint_title);
+		TextView title_tv = (TextView) window.findViewById(R.id.dialog_hint_title);
 		Button submit = (Button) window.findViewById(R.id.dialog_hint_submit);
 		Button cancel = (Button) window.findViewById(R.id.dialog_hint_cancel);
 		submit.setBackgroundDrawable(ImageUtil.getInstance()
@@ -321,8 +315,22 @@ public class AlertUtil {
 		public void getSelect(String s);
 	}
 
-	public void showDialog(){
-//        new MyDialogFragment().show(getFragmentManager(),"dialog");
+    /**
+     *
+     * @param context
+     * @param title
+     * @param message
+     * @param submitStr
+     * @param cancelStr
+     */
+	public static void showDialog(Activity context,String title,String message,String submitStr,String cancelStr,AlertCallBack callBack){
+		MyDialogFragment myDialogFragment =new MyDialogFragment();
+		myDialogFragment.setTitle(title);
+		myDialogFragment.setMessage(message);
+		myDialogFragment.setSubmitStr(submitStr);
+		myDialogFragment.setCancelStr(cancelStr);
+		myDialogFragment.setAlertCallBack(callBack);
+		myDialogFragment.show(context.getFragmentManager(),"dialog");
 	}
 
 }
