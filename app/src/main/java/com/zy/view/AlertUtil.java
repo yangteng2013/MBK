@@ -329,7 +329,9 @@ public class AlertUtil {
      * @param cancelStr
      */
 	public static void showDialog(Activity context,String title,String message,String submitStr,String cancelStr,AlertCallBack callBack){
-//		MyDialogFragment.getInstance("aa").show(context.getFragmentManager(),"dialog");
+		MyDialogFragment myDialogFragment =MyDialogFragment.getInstance();
+		myDialogFragment.initInfo(title,message,submitStr, cancelStr, callBack);
+		myDialogFragment.show(context.getFragmentManager(),"dialog");
 	}
 
 }

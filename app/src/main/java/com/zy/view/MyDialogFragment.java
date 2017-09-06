@@ -19,11 +19,20 @@ import com.zy.utils.ImageUtil;
  */
 
 public class MyDialogFragment extends DialogFragment{
-   private String title ,message,submitStr,cancelStr;
-   private AlertUtil.AlertCallBack callBack;
+    private String title ,message,submitStr,cancelStr;
+    private AlertUtil.AlertCallBack callBack;
 
-    MyDialogFragment myDialogFragment;
-    public MyDialogFragment getInstance(){
+    public void initInfo(@Nullable String title ,String message,@Nullable String submitStr,@Nullable String cancelStr,@Nullable AlertUtil.AlertCallBack callBack){
+        this.title = title;
+        this.message = message;
+        this.submitStr = submitStr;
+        this.cancelStr = cancelStr;
+        this.callBack =callBack;
+    }
+
+
+    static  MyDialogFragment myDialogFragment;
+    public static  MyDialogFragment getInstance(){
         if(myDialogFragment==null){
             myDialogFragment= new MyDialogFragment();
         }
@@ -72,30 +81,47 @@ public class MyDialogFragment extends DialogFragment{
                 .getStateListDrawable(submit.getBackground()));
         cancel.setBackgroundDrawable(ImageUtil.getInstance()
                 .getStateListDrawable(cancel.getBackground()));
-//        if(title!=null&&!"".equals(title)){
-//            title_tv.setText(title);
-//            Logger.d(title,"System.out");
-//        }else{
+        if(title!=null&&!"".equals(title)){
+            title_tv.setText(title);
+        }else if(savedInstanceState!=null){
+            String str =  savedInstanceState.getString("title");
+            title_tv.setText(str == null?"" : str);
+        }else{
             title_tv.setText("温馨提示");
-//        }
+        }
+
         if(submitStr!=null&&!"".equals(submitStr)){
             submit.setText(submitStr);
+        }else if(savedInstanceState!=null){
+            String str =  savedInstanceState.getString("submitStr");
+            submit.setText(str == null?"" : str);
         }else{
             submit.setText("确定");
         }
         if(cancelStr!=null&&!"".equals(cancelStr)){
             cancel.setText(cancelStr);
+        }else if(savedInstanceState!=null){
+            String str =  savedInstanceState.getString("cancelStr");
+            cancel.setText(str == null?"" : str);
         }else{
             cancel.setText("取消");
         }
-        msg_tv.setText(message);
+
+        if(message!=null&&!"".equals(message)){
+            msg_tv.setText(message);
+        }else {
+            if (savedInstanceState != null) {
+                String str = savedInstanceState.getString("cancelStr");
+                cancel.setText(str == null ? "" : str);
+            }
+        }
+
         submit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if(callBack!=null) {
                     callBack.onPositive();
-
                 }
                 dismiss();
             }
@@ -106,7 +132,6 @@ public class MyDialogFragment extends DialogFragment{
             public void onClick(View v) {
                 if(callBack!=null) {
                     callBack.onNegative();
-
                 }
                 dismiss();
             }
@@ -114,9 +139,13 @@ public class MyDialogFragment extends DialogFragment{
         return view;
     }
 
-    public void setAlertCallBack(AlertUtil.AlertCallBack callBack){
-        this.callBack =callBack;
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("title",title);
+        outState.putString("message",message);
+        outState.putString("submitStr",submitStr);
+        outState.putString("cancelStr",cancelStr);
+
+        super.onSaveInstanceState(outState);
     }
-
-
 }
