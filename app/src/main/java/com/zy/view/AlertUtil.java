@@ -105,13 +105,16 @@ public class AlertUtil {
 			String cancelStr, String title, String message,
 			final AlertCallBack callback) {
 //		final Dialog dlg  = new Dialog(activity,R.style.dialog_style);
-		final AlertDialog dlg = new AlertDialog.Builder(activity).create();
+		final AlertDialog dlg = new AlertDialog.Builder(activity,R.style.dialog_style).create();
+//		final AlertDialog dlg = new AlertDialog.Builder(activity).create();
 		dlg.setCancelable(false);
 		dlg.show();
+
 		Window window = dlg.getWindow();
 		// *** 主要就是在这里实现这种效果的.
-		// 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
+
 		window.setContentView(R.layout.dialog_hint_layout);
+
 		// 为确认按钮添加事件,执行退出应用操作
 		TextView msg_tv = (TextView) window.findViewById(R.id.dialog_hint_msg);
 		TextView title_tv = (TextView) window.findViewById(R.id.dialog_hint_title);
@@ -121,7 +124,7 @@ public class AlertUtil {
 				.getStateListDrawable(submit.getBackground()));
 		cancel.setBackgroundDrawable(ImageUtil.getInstance()
 				.getStateListDrawable(cancel.getBackground()));
-		title_tv.setText(title);
+		title_tv.setText("温馨提示");
 		msg_tv.setText(message);
 		submit.setText(submitStr);
 		cancel.setText(cancelStr);
@@ -141,6 +144,8 @@ public class AlertUtil {
 				callback.onNegative();
 			}
 		});
+
+
 	}
 	
 	
@@ -324,13 +329,7 @@ public class AlertUtil {
      * @param cancelStr
      */
 	public static void showDialog(Activity context,String title,String message,String submitStr,String cancelStr,AlertCallBack callBack){
-		MyDialogFragment myDialogFragment =new MyDialogFragment();
-		myDialogFragment.setTitle(title);
-		myDialogFragment.setMessage(message);
-		myDialogFragment.setSubmitStr(submitStr);
-		myDialogFragment.setCancelStr(cancelStr);
-		myDialogFragment.setAlertCallBack(callBack);
-		myDialogFragment.show(context.getFragmentManager(),"dialog");
+//		MyDialogFragment.getInstance("aa").show(context.getFragmentManager(),"dialog");
 	}
 
 }

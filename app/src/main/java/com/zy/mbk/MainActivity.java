@@ -3,21 +3,17 @@ package com.zy.mbk;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.zy.view.AlertUtil;
+import com.zy.view.PopUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
 //        Logger.d("native:"+NativeUtil.getSha1String());
 //        Logger.d("getpakage:"+ PakageInfo.getCertificateSHA1Fingerprint(this));
 //        Logger.d("getMetaData:"+PakageInfo.getMetaData(this,"UMENG_CHANNEL"));
+        Button button = (Button)this.findViewById(R.id.button);
+        button.setOnClickListener(this);
+        Button button2 = (Button)this.findViewById(R.id.button2);
+        button2.setOnClickListener(this);
+        Button button3 = (Button)this.findViewById(R.id.button3);
+        button3.setOnClickListener(this);
+        Button button4 = (Button)this.findViewById(R.id.button4);
+        button4.setOnClickListener(this);
+        Button button5 = (Button)this.findViewById(R.id.button5);
+        button5.setOnClickListener(this);
+
     }
 
     @Override
@@ -68,48 +75,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-       String string =newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE?"横屏":"竖屏";
-        Logger.d(string);
-    }
-
-    public void lpChange(View v){
-        switch (v.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.button:
-                if (getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT) {
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                }else{
+                } else {
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
-              break;
+                break;
             case R.id.button2:
-                startActivity(new Intent(this,ActivityliveTest.class));
+                startActivity(new Intent(this, ActivityliveTest.class));
                 break;
             case R.id.button3:
-                View popContent =View.inflate(this,R.layout.popwindow,null);
-                final PopupWindow popupWindow  = new  PopupWindow(popContent, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.showAtLocation(v, Gravity.CENTER,0,0);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
-                Button btn_pop_cancer =(Button)popContent.findViewById(R.id.btn_pop_cancer);
-                btn_pop_cancer.setOnClickListener(new View.OnClickListener() {
+                PopUtil.showDiaogPop(this, view, "温馨提示", "来晚了和立法会拉赫", "", "", new PopUtil.PopCallBack() {
                     @Override
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
+                    public void positiveCallBack() {
+                        Logger.d("确定");
                     }
-                });
 
-                Button btn_pop_ensure =(Button)popContent.findViewById(R.id.btn_pop_ensure);
-                btn_pop_ensure.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        popupWindow.dismiss();
+                    public void negtiveCallBack() {
+                        Logger.d("取消");
                     }
                 });
 
                 break;
             case R.id.button4:
-                AlertUtil.ShowAlertDialog(MainActivity.this, "sdad", new AlertUtil.AlertCallBack() {
+                AlertUtil.ShowAlertDialog(MainActivity.this, "asdadss",new AlertUtil.AlertCallBack() {
                     @Override
                     public void onPositive() {
 
@@ -121,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case R.id.button5:
-                AlertUtil.showDialog(MainActivity.this, "温馨提示", "cfcaasad", "确定", "取消", new AlertUtil.AlertCallBack() {
+                AlertUtil.showDialog(MainActivity.this, "温馨提示", "测da试ds内容", "确定", "取消", new AlertUtil.AlertCallBack() {
                     @Override
                     public void onPositive() {
                         Logger.d("madehaonan");
@@ -133,7 +126,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 break;
-             default:break;
+            default:
+                break;
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+       String string =newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE?"横屏":"竖屏";
+        Logger.d(string);
     }
 }

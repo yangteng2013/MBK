@@ -26,7 +26,6 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="lpChange"
         android:text="切屏"/>
     <Button
         android:id="@+id/button2"
@@ -38,19 +37,16 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="lpChange"
         android:text="showpop"/>
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="lpChange"
         android:text="show dialog"/>
     <Button
         android:id="@+id/button5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="lpChange"
-        android:text="show dialog"/>
+        android:text="show dialogfragment"/>
 
 </LinearLayout>
