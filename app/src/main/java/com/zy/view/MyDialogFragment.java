@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.zy.mbk.R;
 import com.zy.utils.ImageUtil;
 
@@ -19,23 +18,19 @@ import com.zy.utils.ImageUtil;
  */
 
 public class MyDialogFragment extends DialogFragment{
-    private String title ,message,submitStr,cancelStr;
     private AlertUtil.AlertCallBack callBack;
 
-    public void initInfo(@Nullable String title ,String message,@Nullable String submitStr,@Nullable String cancelStr,@Nullable AlertUtil.AlertCallBack callBack){
-        this.title = title;
-        this.message = message;
-        this.submitStr = submitStr;
-        this.cancelStr = cancelStr;
-        this.callBack =callBack;
-    }
-
-
     static  MyDialogFragment myDialogFragment;
-    public static  MyDialogFragment getInstance(){
+    public static  MyDialogFragment getInstance(@Nullable String title ,String message,@Nullable String submitStr,@Nullable String cancelStr,@Nullable AlertUtil.AlertCallBack callBack ){
         if(myDialogFragment==null){
             myDialogFragment= new MyDialogFragment();
         }
+        Bundle bundle  = new Bundle();
+        bundle.putString("title",title);
+        bundle.putString("message",message);
+        bundle.putString("submitStr",submitStr);
+        bundle.putString("cancelStr",cancelStr);
+        myDialogFragment.setArguments(bundle);
         return myDialogFragment;
     }
 
@@ -43,8 +38,10 @@ public class MyDialogFragment extends DialogFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //设置无标题 无边框 应用自定义样式
-        Logger.d("onCreate");
         setStyle(DialogFragment.STYLE_NO_TITLE,R.style.dialog_style);
+        if(savedInstanceState!=null){
+            getFragmentManager();
+        }
     }
 
     @Override
@@ -54,7 +51,6 @@ public class MyDialogFragment extends DialogFragment{
         //横向充满
 //        getDialog().getWindow().getAttributes().width=getResources().getDisplayMetrics().widthPixels;
         //对齐方式
-        Logger.d("onStart");
         getDialog().getWindow().setGravity(Gravity.CENTER);
         super.onStart();
     }
@@ -68,7 +64,6 @@ public class MyDialogFragment extends DialogFragment{
         // //对话框背景色
         //getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.RED));
         //getDialog().getWindow().setDimAmount(0.5f);//背景黑暗度
-        Logger.d("onCreateView");
         //不能在此处设置style
         // setStyle(DialogFragment.STYLE_NORMAL,R.style.dialog_style);//在此处设置主题样式不起作用
 
@@ -81,39 +76,18 @@ public class MyDialogFragment extends DialogFragment{
                 .getStateListDrawable(submit.getBackground()));
         cancel.setBackgroundDrawable(ImageUtil.getInstance()
                 .getStateListDrawable(cancel.getBackground()));
-        if(title!=null&&!"".equals(title)){
-            title_tv.setText(title);
-        }else if(savedInstanceState!=null){
-            String str =  savedInstanceState.getString("title");
-            title_tv.setText(str == null?"" : str);
-        }else{
-            title_tv.setText("温馨提示");
-        }
 
-        if(submitStr!=null&&!"".equals(submitStr)){
-            submit.setText(submitStr);
-        }else if(savedInstanceState!=null){
-            String str =  savedInstanceState.getString("submitStr");
-            submit.setText(str == null?"" : str);
-        }else{
-            submit.setText("确定");
+        if(getArguments().getString("title")!=null){
+            title_tv.setText(getArguments().getString("title"));
         }
-        if(cancelStr!=null&&!"".equals(cancelStr)){
-            cancel.setText(cancelStr);
-        }else if(savedInstanceState!=null){
-            String str =  savedInstanceState.getString("cancelStr");
-            cancel.setText(str == null?"" : str);
-        }else{
-            cancel.setText("取消");
+        if(getArguments().getString("submitStr")!=null){
+            submit.setText(getArguments().getString("submitStr"));
         }
-
-        if(message!=null&&!"".equals(message)){
-            msg_tv.setText(message);
-        }else {
-            if (savedInstanceState != null) {
-                String str = savedInstanceState.getString("cancelStr");
-                cancel.setText(str == null ? "" : str);
-            }
+        if(getArguments().getString("cancelStr")!=null){
+            cancel.setText(getArguments().getString("cancelStr"));
+        }
+        if(getArguments().getString("message")!=null){
+            msg_tv.setText(getArguments().getString("message"));
         }
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -140,12 +114,8 @@ public class MyDialogFragment extends DialogFragment{
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putString("title",title);
-        outState.putString("message",message);
-        outState.putString("submitStr",submitStr);
-        outState.putString("cancelStr",cancelStr);
-
-        super.onSaveInstanceState(outState);
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
+
 }
